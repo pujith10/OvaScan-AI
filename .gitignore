@@ -45,3 +45,10 @@ yarn-error.log*
 # Agent Artifacts
 .agents/
 .gemini/
+
+# Excluded Datasets, Notebooks & Local Reports
+Letrozole_ovulation_PCOS.csv
+PCOS-HPOD-AMH.xlsx
+PROJECT_DOCUMENTATION.md
+train_ovascan_v2_colab.ipynb
+OVASCAN_AI_*.md
