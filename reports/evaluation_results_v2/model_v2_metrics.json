@@ -1,0 +1,307 @@
+{
+  "version": "v2.0_production",
+  "dataset_info": {
+    "primary_cohort_size": 541,
+    "external_validation_size": 300,
+    "features_count": 13,
+    "features": [
+      "Follicle No. (R)",
+      "Follicle No. (L)",
+      "AMH(ng/mL)",
+      "LH(mIU/mL)",
+      "FSH(mIU/mL)",
+      "Cycle(R/I)",
+      "Cycle length(days)",
+      "BMI",
+      "Fast food (Y/N)",
+      "Skin darkening (Y/N)",
+      "hair growth(Y/N)",
+      "Weight gain(Y/N)",
+      "LH_FSH_Ratio"
+    ]
+  },
+  "supervised_metrics": {
+    "internal_test_n109": {
+      "accuracy": 0.9908256880733946,
+      "sensitivity_tpr": 0.9722222222222222,
+      "specificity_tnr": 1.0,
+      "precision_ppv": 1.0,
+      "f1_score": 0.9859154929577465,
+      "auroc": 0.9992389649923896,
+      "auprc": 0.9985380116959064,
+      "confusion_matrix": {
+        "tn": 73,
+        "fp": 0,
+        "fn": 1,
+        "tp": 35
+      },
+      "bootstrap_95ci": {
+        "accuracy": [
+          0.9724770642201835,
+          1.0
+        ],
+        "sensitivity": [
+          0.9117647058823529,
+          1.0
+        ],
+        "specificity": [
+          1.0,
+          1.0
+        ],
+        "precision": [
+          1.0,
+          1.0
+        ],
+        "f1_score": [
+          0.9538461538461539,
+          1.0
+        ],
+        "auroc": [
+          0.9966244013000343,
+          1.0
+        ],
+        "auprc": [
+          0.993533519063639,
+          1.0
+        ]
+      }
+    },
+    "cross_validation_5fold": {
+      "accuracy_mean": 0.9907747196738022,
+      "accuracy_std": 0.009217000894717029,
+      "sensitivity_mean": 0.9944444444444445,
+      "sensitivity_std": 0.012422599874998837,
+      "specificity_mean": 0.9890410958904109,
+      "specificity_std": 0.011461096253891452,
+      "precision_mean": 0.978078078078078,
+      "precision_std": 0.022705711464671194,
+      "f1_mean": 0.9860719874804381,
+      "f1_std": 0.013889164404682039,
+      "auroc_mean": 0.9992259186779734,
+      "auroc_std": 0.0010994740138680903,
+      "auprc_mean": 0.9984507605586037,
+      "auprc_std": 0.0022283695712522382
+    },
+    "external_validation_harvard_n300": {
+      "accuracy": 0.73,
+      "sensitivity_tpr": 0.6538461538461539,
+      "specificity_tnr": 1.0,
+      "precision_ppv": 1.0,
+      "f1_score": 0.7906976744186046,
+      "auroc": 0.9573297073297073,
+      "auprc": 0.987211954803858,
+      "confusion_matrix": {
+        "tn": 66,
+        "fp": 0,
+        "fn": 81,
+        "tp": 153
+      }
+    }
+  },
+  "unsupervised_metrics": {
+    "silhouette_score_k3": 0.26200236118071446,
+    "calinski_harabasz_index": 134.4464725711537,
+    "davies_bouldin_index": 1.1684903039766394,
+    "cluster_prevalence": {
+      "0": {
+        "count": 177,
+        "percentage": 32.72
+      },
+      "1": {
+        "count": 363,
+        "percentage": 67.1
+      },
+      "2": {
+        "count": 1,
+        "percentage": 0.18
+      }
+    },
+    "jaccard_stability_1000_iterations": {
+      "overall_mean": 0.8626420105191223,
+      "per_cluster": {
+        "0": {
+          "mean": 0.9214658179575306,
+          "std": 0.09285830904404471,
+          "ci_95": [
+            0.6802295918367347,
+            0.993006993006993
+          ]
+        },
+        "1": {
+          "mean": 0.9320600797113157,
+          "std": 0.10588337507966086,
+          "ci_95": [
+            0.647997275056453,
+            0.9965753424657534
+          ]
+        },
+        "2": {
+          "mean": 0.7344001338885209,
+          "std": 0.4412015723997743,
+          "ci_95": [
+            0.0,
+            1.0
+          ]
+        }
+      }
+    },
+    "adjusted_rand_index": {
+      "bootstrap_stability_ari_mean": 0.8654113485346497,
+      "bootstrap_stability_ari_std": 0.17855369730777898,
+      "kmeans_vs_gmm_ari": 0.33831840526138157,
+      "clinical_concordance_ari": 0.5805502790770208
+    },
+    "elbow_analysis": {
+      "sse_by_k": {
+        "2": 5771.328746056095,
+        "3": 4689.288737470222,
+        "4": 4145.830647633424,
+        "5": 4072.0657316278075,
+        "6": 3528.321869883698,
+        "7": 3307.0706233390965,
+        "8": 3111.2831571362512,
+        "9": 2908.416131772795,
+        "10": 2779.61763549801
+      },
+      "silhouette_by_k": {
+        "2": 0.2567949507597106,
+        "3": 0.26200236118071446,
+        "4": 0.2667913127506184,
+        "5": 0.16115571041134494,
+        "6": 0.15411594707848236,
+        "7": 0.1564513129077183,
+        "8": 0.15595234372292027,
+        "9": 0.16920165899067394,
+        "10": 0.17705974972984917
+      }
+    }
+  },
+  "explainability_and_pca": {
+    "pca_variance": {
+      "pc_count_for_75pct": 7,
+      "pc_count_for_90pct": 9,
+      "top_5_pc_variance_explained": [
+        24.47,
+        15.41,
+        9.74,
+        8.16,
+        7.71
+      ],
+      "top_5_eigenvalues": [
+        3.187,
+        2.0067,
+        1.2682,
+        1.0633,
+        1.0047
+      ]
+    },
+    "shap_rankings": [
+      {
+        "feature": "Follicle No. (R)",
+        "mean_abs_shap": 1.4813
+      },
+      {
+        "feature": "hair growth(Y/N)",
+        "mean_abs_shap": 0.599
+      },
+      {
+        "feature": "Follicle No. (L)",
+        "mean_abs_shap": 0.573
+      },
+      {
+        "feature": "Weight gain(Y/N)",
+        "mean_abs_shap": 0.5445
+      },
+      {
+        "feature": "Skin darkening (Y/N)",
+        "mean_abs_shap": 0.4279
+      },
+      {
+        "feature": "AMH(ng/mL)",
+        "mean_abs_shap": 0.3803
+      },
+      {
+        "feature": "Cycle(R/I)",
+        "mean_abs_shap": 0.3168
+      },
+      {
+        "feature": "Fast food (Y/N)",
+        "mean_abs_shap": 0.2653
+      },
+      {
+        "feature": "LH_FSH_Ratio",
+        "mean_abs_shap": 0.1854
+      },
+      {
+        "feature": "LH(mIU/mL)",
+        "mean_abs_shap": 0.1568
+      },
+      {
+        "feature": "BMI",
+        "mean_abs_shap": 0.1471
+      },
+      {
+        "feature": "FSH(mIU/mL)",
+        "mean_abs_shap": 0.1298
+      },
+      {
+        "feature": "Cycle length(days)",
+        "mean_abs_shap": 0.1133
+      }
+    ],
+    "lasso_l1_weights": [
+      {
+        "feature": "Follicle No. (R)",
+        "l1_weight": 1.573
+      },
+      {
+        "feature": "Weight gain(Y/N)",
+        "l1_weight": 0.6273
+      },
+      {
+        "feature": "hair growth(Y/N)",
+        "l1_weight": 0.6024
+      },
+      {
+        "feature": "Follicle No. (L)",
+        "l1_weight": 0.5483
+      },
+      {
+        "feature": "Skin darkening (Y/N)",
+        "l1_weight": 0.5269
+      },
+      {
+        "feature": "Cycle(R/I)",
+        "l1_weight": 0.5267
+      },
+      {
+        "feature": "Fast food (Y/N)",
+        "l1_weight": 0.2472
+      },
+      {
+        "feature": "LH(mIU/mL)",
+        "l1_weight": 0.2076
+      },
+      {
+        "feature": "AMH(ng/mL)",
+        "l1_weight": 0.1561
+      },
+      {
+        "feature": "Cycle length(days)",
+        "l1_weight": -0.064
+      },
+      {
+        "feature": "FSH(mIU/mL)",
+        "l1_weight": 0.0
+      },
+      {
+        "feature": "BMI",
+        "l1_weight": 0.0
+      },
+      {
+        "feature": "LH_FSH_Ratio",
+        "l1_weight": 0.0
+      }
+    ]
+  }
+}

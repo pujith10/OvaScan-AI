@@ -1,0 +1,186 @@
+# Feature Registry for OvaScan AI v2
+# Defines feature metadata, physiological valid ranges, tiers (A/B/C), and leakage flags.
+
+features:
+  # Identifiers & Data Artifacts (MUST BE EXCLUDED)
+  - name: "Sl. No"
+    display: "Serial Index"
+    unit: "id"
+    tier: "EXCLUDE"
+    is_identifier: true
+    exclude_from_models: true
+    rationale: "Patient serial identifier. Data ordering artifact that causes data leakage."
+
+  - name: "Patient File No."
+    display: "File Number"
+    unit: "id"
+    tier: "EXCLUDE"
+    is_identifier: true
+    exclude_from_models: true
+    rationale: "Administrative record key, not a biological variable."
+
+  - name: "I   beta-HCG(mIU/mL)"
+    display: "I beta-HCG"
+    unit: "mIU/mL"
+    tier: "EXCLUDE"
+    suspect_artifact: true
+    exclude_from_models: true
+    rationale: "Pregnancy marker. Not a physiologically justified predictor of non-gestational PCOS."
+
+  - name: "II    beta-HCG(mIU/mL)"
+    display: "II beta-HCG"
+    unit: "mIU/mL"
+    tier: "EXCLUDE"
+    suspect_artifact: true
+    exclude_from_models: true
+    rationale: "Duplicate confirmation titer for gestational hormone; artifact in baseline PCOS classification."
+
+  # Tier A: Low-Resource & Non-Invasive Clinical Features
+  - name: "Age (yrs)"
+    display: "Age"
+    unit: "years"
+    tier: "A"
+    physiological_range: [10.0, 65.0]
+    is_rotterdam_criterion: false
+    is_identifier: false
+
+  - name: "BMI"
+    display: "Body Mass Index"
+    unit: "kg/m²"
+    tier: "A"
+    physiological_range: [12.0, 70.0]
+    is_rotterdam_criterion: false
+    is_identifier: false
+
+  - name: "Waist:Hip Ratio"
+    display: "Waist-to-Hip Ratio"
+    unit: "ratio"
+    tier: "A"
+    physiological_range: [0.5, 1.8]
+    is_rotterdam_criterion: false
+    is_identifier: false
+
+  - name: "Cycle(R/I)"
+    display: "Cycle Regularity"
+    unit: "categorical"
+    tier: "A"
+    physiological_range: [0, 5]
+    is_rotterdam_criterion: true
+    is_identifier: false
+
+  - name: "Cycle length(days)"
+    display: "Cycle Length"
+    unit: "days"
+    tier: "A"
+    physiological_range: [15.0, 150.0]
+    is_rotterdam_criterion: true
+    is_identifier: false
+
+  - name: "Weight gain(Y/N)"
+    display: "Weight Gain Flag"
+    unit: "binary"
+    tier: "A"
+    physiological_range: [0, 1]
+    is_rotterdam_criterion: false
+    is_identifier: false
+
+  - name: "hair growth(Y/N)"
+    display: "Hirsutism Clinical Flag"
+    unit: "binary"
+    tier: "A"
+    physiological_range: [0, 1]
+    is_rotterdam_criterion: true
+    is_identifier: false
+
+  - name: "Skin darkening (Y/N)"
+    display: "Acanthosis Nigricans Flag"
+    unit: "binary"
+    tier: "A"
+    physiological_range: [0, 1]
+    is_rotterdam_criterion: false
+    is_identifier: false
+
+  - name: "Hair loss(Y/N)"
+    display: "Alopecia Flag"
+    unit: "binary"
+    tier: "A"
+    physiological_range: [0, 1]
+    is_rotterdam_criterion: true
+    is_identifier: false
+
+  - name: "Pimples(Y/N)"
+    display: "Acne Flag"
+    unit: "binary"
+    tier: "A"
+    physiological_range: [0, 1]
+    is_rotterdam_criterion: true
+    is_identifier: false
+
+  - name: "Fast food (Y/N)"
+    display: "Dietary Factor"
+    unit: "binary"
+    tier: "A"
+    physiological_range: [0, 1]
+    is_rotterdam_criterion: false
+    is_identifier: false
+
+  # Tier B: Standard Endocrine & Metabolic Labs
+  - name: "FSH(mIU/mL)"
+    display: "Follicle Stimulating Hormone"
+    unit: "mIU/mL"
+    tier: "B"
+    physiological_range: [0.1, 80.0]
+    is_rotterdam_criterion: false
+    is_identifier: false
+
+  - name: "LH(mIU/mL)"
+    display: "Luteinizing Hormone"
+    unit: "mIU/mL"
+    tier: "B"
+    physiological_range: [0.1, 100.0]
+    is_rotterdam_criterion: false
+    is_identifier: false
+
+  - name: "TSH (mIU/L)"
+    display: "Thyroid Stimulating Hormone"
+    unit: "mIU/L"
+    tier: "B"
+    physiological_range: [0.01, 50.0]
+    is_rotterdam_criterion: false
+    is_identifier: false
+    exclusion_marker: "Hypo/Hyperthyroidism"
+
+  - name: "PRL(ng/mL)"
+    display: "Prolactin"
+    unit: "ng/mL"
+    tier: "B"
+    physiological_range: [0.5, 200.0]
+    is_rotterdam_criterion: false
+    is_identifier: false
+    exclusion_marker: "Hyperprolactinemia"
+
+  - name: "Vit D3 (ng/mL)"
+    display: "Vitamin D3"
+    unit: "ng/mL"
+    tier: "B"
+    physiological_range: [1.0, 150.0]
+    is_rotterdam_criterion: false
+    is_identifier: false
+
+  - name: "RBS(mg/dl)"
+    display: "Random Blood Sugar"
+    unit: "mg/dL"
+    tier: "B"
+    physiological_range: [40.0, 450.0]
+    is_rotterdam_criterion: false
+    is_identifier: false
+
+  # Tier C: Specialized Hormonal & High-Specificity Biomarkers
+  - name: "AMH(ng/mL)"
+    display: "Anti-Müllerian Hormone"
+    unit: "ng/mL"
+    tier: "C"
+    physiological_range: [0.01, 50.0]
+    is_rotterdam_criterion: false
+    is_identifier: false
+    assay_method: "unknown"

@@ -1,0 +1,39 @@
+# Clinical Thresholds & Guideline Definitions for OvaScan AI v2
+
+guidelines:
+  rotterdam_2003:
+    name: "Rotterdam Consensus 2003"
+    criteria_required_count: 2
+    total_criteria_count: 3
+    pcom_follicle_threshold: 12
+    pcom_ovarian_volume_threshold_ml: 10.0
+    allow_amh_as_pcom_substitute: false
+    citation: "Rotterdam ESHRE/ASRM-Sponsored PCOS Consensus Workshop Group. Human Reproduction, 2004."
+
+  intl_guideline_2023:
+    name: "International Evidence-Based PCOS Guideline 2023"
+    criteria_required_count: 2
+    total_criteria_count: 3
+    pcom_follicle_threshold_high_freq: 20
+    pcom_ovarian_volume_threshold_ml: 10.0
+    allow_amh_as_pcom_substitute: true
+    amh_pcom_threshold_ng_ml: 4.80
+    adolescent_caution_age_years: 18
+    citation: "Teede HJ, et al. Recommendations from the 2023 international evidence-based guideline for the assessment and management of polycystic ovary syndrome. European Journal of Endocrinology, 2023."
+
+ethnicity_hirsutism_cutoffs_mfg:
+  south_asian:
+    mfg_cutoff: 6
+    citation: "P-PUP Consensus & Endocrine Society Clinical Practice Guidelines."
+  caucasian_generic:
+    mfg_cutoff: 8
+    citation: "Endocrine Society Clinical Practice Guideline (Yildiz et al., 2010)."
+  east_asian:
+    mfg_cutoff: 4
+    citation: "International Evidence-Based Guideline (2023 Update)."
+
+exclusion_biomarker_ranges:
+  tsh_elevated_threshold_miu_l: 4.5
+  tsh_suppressed_threshold_miu_l: 0.3
+  prolactin_elevated_threshold_ng_ml: 25.0
+  ohp17_elevated_threshold_ng_ml: 2.0

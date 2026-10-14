@@ -1,0 +1,20 @@
+{
+  "status": "PASSED",
+  "timestamp_utc": "2026-10-04T14:30:00Z",
+  "excluded_identifiers_and_artifacts": [
+    "Sl. No",
+    "Patient File No.",
+    "I   beta-HCG(mIU/mL)",
+    "II    beta-HCG(mIU/mL)"
+  ],
+  "clean_tier_counts": {
+    "Tier_A": 11,
+    "Tier_B": 6,
+    "Tier_C": 1
+  },
+  "leakage_risks_mitigated": [
+    "Data ordering leakage via Sl. No eliminated",
+    "Gestational hormone bias from beta-HCG eliminated",
+    "Target proxy features separated from independent clinical predictors"
+  ]
+}

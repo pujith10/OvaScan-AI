@@ -1,0 +1,128 @@
+{
+  "test_suite_version": "v2.0_rigorous_audit",
+  "timestamp": "2026-10-05T19:01:31.841325",
+  "shap_mathematical_validation": {
+    "local_additivity_efficiency": {
+      "max_error": 1.3132375897839665e-06,
+      "mean_error": 3.7241871606565506e-07,
+      "status": "PASSED (Exact local accuracy confirmed)",
+      "mathematical_rule": "sum(phi_i) + E[f(x)] == f(x)"
+    },
+    "faithfulness_feature_ablation": {
+      "top_down_audc": 3.3166357856867577,
+      "bottom_up_audc": 1.3270118382092941,
+      "faithfulness_ratio": 2.4993264492367424,
+      "status": "PASSED (Top-SHAP ablation causes steep prediction collapse)"
+    },
+    "rankings_mean_abs_shap": [
+      {
+        "rank": 1,
+        "feature": "Follicle No. (R)",
+        "mean_abs_shap": 1.4749
+      },
+      {
+        "rank": 2,
+        "feature": "hair growth(Y/N)",
+        "mean_abs_shap": 0.6017
+      },
+      {
+        "rank": 3,
+        "feature": "Follicle No. (L)",
+        "mean_abs_shap": 0.5729
+      },
+      {
+        "rank": 4,
+        "feature": "Weight gain(Y/N)",
+        "mean_abs_shap": 0.5621
+      },
+      {
+        "rank": 5,
+        "feature": "Skin darkening (Y/N)",
+        "mean_abs_shap": 0.4342
+      },
+      {
+        "rank": 6,
+        "feature": "AMH(ng/mL)",
+        "mean_abs_shap": 0.3803
+      },
+      {
+        "rank": 7,
+        "feature": "Cycle(R/I)",
+        "mean_abs_shap": 0.3172
+      },
+      {
+        "rank": 8,
+        "feature": "Fast food (Y/N)",
+        "mean_abs_shap": 0.271
+      },
+      {
+        "rank": 9,
+        "feature": "LH_FSH_Ratio",
+        "mean_abs_shap": 0.1777
+      },
+      {
+        "rank": 10,
+        "feature": "LH(mIU/mL)",
+        "mean_abs_shap": 0.1601
+      },
+      {
+        "rank": 11,
+        "feature": "BMI",
+        "mean_abs_shap": 0.1536
+      },
+      {
+        "rank": 12,
+        "feature": "FSH(mIU/mL)",
+        "mean_abs_shap": 0.1142
+      },
+      {
+        "rank": 13,
+        "feature": "Cycle length(days)",
+        "mean_abs_shap": 0.108
+      }
+    ]
+  },
+  "supervised_performance": {
+    "internal_test_n109": {
+      "accuracy": 0.9908256880733946,
+      "sensitivity": 0.9722222222222222,
+      "specificity": 1.0,
+      "precision": 1.0,
+      "f1_score": 0.9859154929577465,
+      "auroc": 0.9992389649923896,
+      "auprc": 0.9985380116959064,
+      "confusion_matrix": {
+        "tn": 73,
+        "fp": 0,
+        "fn": 1,
+        "tp": 35
+      }
+    },
+    "external_hospital_validation_n300": {
+      "accuracy": 0.73,
+      "auroc": 0.9573297073297073,
+      "auprc": 0.987211954803858,
+      "specificity": 1.0,
+      "precision": 1.0
+    }
+  },
+  "unsupervised_clustering": {
+    "silhouette_score": 0.262,
+    "calinski_harabasz_index": 134.45,
+    "davies_bouldin_index": 1.1685,
+    "jaccard_stability_1000_iterations": 0.8626,
+    "bootstrap_ari": 0.8654
+  },
+  "generated_figures": [
+    "shap_faithfulness_ablation_curve.png",
+    "shap_beeswarm_summary.png",
+    "shap_feature_importance_bar.png",
+    "shap_waterfall_patient_positive.png",
+    "shap_waterfall_patient_control.png",
+    "shap_dependence_follicles_amh.png",
+    "roc_curve_v2.png",
+    "pr_curve_v2.png",
+    "confusion_matrix_internal.png",
+    "unsupervised_pca_clusters.png"
+  ]
+}

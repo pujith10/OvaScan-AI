@@ -1,0 +1,54 @@
+# Illustrative Test Costs & Turnaround Times for Cost-Aware Decision Support
+# Note: Costs are illustrative in USD / INR equivalents and meant for clinical optimization.
+
+currency: "USD"
+
+tests:
+  rbs:
+    name: "Random Blood Sugar (RBS)"
+    cost: 5.0
+    turnaround_hours: 1
+    invasive_level: "low"
+    tier: "A"
+
+  tsh:
+    name: "Thyroid Stimulating Hormone (TSH)"
+    cost: 12.0
+    turnaround_hours: 12
+    invasive_level: "low"
+    tier: "B"
+
+  prl:
+    name: "Prolactin (PRL)"
+    cost: 15.0
+    turnaround_hours: 12
+    invasive_level: "low"
+    tier: "B"
+
+  lh_fsh:
+    name: "LH & FSH Panel"
+    cost: 20.0
+    turnaround_hours: 12
+    invasive_level: "low"
+    tier: "B"
+
+  ogtt_fasting_insulin:
+    name: "2-hour 75g OGTT + Fasting Insulin"
+    cost: 25.0
+    turnaround_hours: 24
+    invasive_level: "moderate"
+    tier: "B"
+
+  amh:
+    name: "Anti-Müllerian Hormone (AMH)"
+    cost: 45.0
+    turnaround_hours: 24
+    invasive_level: "low"
+    tier: "C"
+
+  pelvic_ultrasound:
+    name: "Transvaginal Pelvic Ultrasound"
+    cost: 65.0
+    turnaround_hours: 2
+    invasive_level: "moderate"
+    tier: "Imaging"

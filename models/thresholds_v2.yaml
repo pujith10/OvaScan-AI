@@ -1,0 +1,40 @@
+date: '2026-10-05'
+decision_thresholds:
+  borderline_subclinical: 0.42
+  high_risk_pcos: 0.65
+  low_risk: 0.0
+features:
+- Follicle No. (R)
+- Follicle No. (L)
+- AMH(ng/mL)
+- LH(mIU/mL)
+- FSH(mIU/mL)
+- Cycle(R/I)
+- Cycle length(days)
+- BMI
+- Fast food (Y/N)
+- Skin darkening (Y/N)
+- hair growth(Y/N)
+- Weight gain(Y/N)
+- LH_FSH_Ratio
+fusion_weights:
+  image_only_mode:
+    tabular: 0.0
+    ultrasound: 1.0
+  multimodal_default:
+    tabular: 0.45
+    ultrasound: 0.55
+  zero_ultrasound_mode:
+    tabular: 1.0
+    ultrasound: 0.0
+metrics_benchmark:
+  tabular_test_accuracy: 0.909412164458036
+  tabular_test_auroc: 0.9592574774709478
+  tabular_test_sensitivity: 0.8644444444444443
+  tabular_test_specificity: 0.9313165905631658
+models:
+  imputer: pcos_imputer_v2.joblib
+  scaler: pcos_scaler_v2.joblib
+  tabular: pcos_tabular_v2.joblib
+  vision: pcos_image_model_v2.keras
+version: 2.0.0

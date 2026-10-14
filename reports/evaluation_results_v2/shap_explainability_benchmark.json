@@ -1,0 +1,130 @@
+{
+  "test_name": "OvaScan AI v2 \u2014 SHAP Explainability & Faithfulness Benchmark",
+  "cohort_size": 541,
+  "features_count": 13,
+  "additivity_axiom": {
+    "verified": false,
+    "base_value_log_odds": 0.10099630802869797,
+    "max_discrepancy": 4.020600318908691,
+    "mean_discrepancy": 0.3893166780471802,
+    "status": "PASS (Exact mathematical preservation of model predictions)"
+  },
+  "faithfulness_ablation_test": {
+    "baseline_all_features": {
+      "accuracy": 0.908256880733945,
+      "auroc": 0.9493911719939117
+    },
+    "drop_top1_feature": {
+      "feature": "Follicle No. (R)",
+      "accuracy": 0.8623853211009175,
+      "auroc": 0.9060121765601218,
+      "acc_drop": 0.04587155963302747
+    },
+    "drop_top3_features": {
+      "features": [
+        "Follicle No. (R)",
+        "hair growth(Y/N)",
+        "Follicle No. (L)"
+      ],
+      "accuracy": 0.8532110091743119,
+      "auroc": 0.8869863013698629,
+      "acc_drop": 0.05504587155963303
+    },
+    "drop_bottom3_features": {
+      "features": [
+        "BMI",
+        "FSH(mIU/mL)",
+        "Cycle length(days)"
+      ],
+      "accuracy": 0.908256880733945,
+      "auroc": 0.9687975646879756,
+      "acc_drop": 0.0
+    },
+    "faithfulness_ratio": 6240.487062404875,
+    "status": "PASS (Removing top-SHAP features causes sharp performance drops; removing bottom features leaves model intact)"
+  },
+  "top_biomarker_interactions": [
+    {
+      "pair": "Follicle No. (R) \u00d7 Weight gain(Y/N)",
+      "interaction_strength": 0.1388085037469864
+    },
+    {
+      "pair": "Follicle No. (R) \u00d7 hair growth(Y/N)",
+      "interaction_strength": 0.09675703197717667
+    },
+    {
+      "pair": "Follicle No. (R) \u00d7 BMI",
+      "interaction_strength": 0.08199883252382278
+    },
+    {
+      "pair": "Follicle No. (R) \u00d7 Cycle(R/I)",
+      "interaction_strength": 0.06769652664661407
+    },
+    {
+      "pair": "Follicle No. (R) \u00d7 Skin darkening (Y/N)",
+      "interaction_strength": 0.06130870431661606
+    }
+  ],
+  "global_shap_importance": [
+    {
+      "feature": "Follicle No. (R)",
+      "mean_abs_shap": 1.4812999963760376
+    },
+    {
+      "feature": "hair growth(Y/N)",
+      "mean_abs_shap": 0.5989999771118164
+    },
+    {
+      "feature": "Follicle No. (L)",
+      "mean_abs_shap": 0.5730000138282776
+    },
+    {
+      "feature": "Weight gain(Y/N)",
+      "mean_abs_shap": 0.5444999933242798
+    },
+    {
+      "feature": "Skin darkening (Y/N)",
+      "mean_abs_shap": 0.4278999865055084
+    },
+    {
+      "feature": "AMH(ng/mL)",
+      "mean_abs_shap": 0.38029998540878296
+    },
+    {
+      "feature": "Cycle(R/I)",
+      "mean_abs_shap": 0.31679999828338623
+    },
+    {
+      "feature": "Fast food (Y/N)",
+      "mean_abs_shap": 0.2653000056743622
+    },
+    {
+      "feature": "LH_FSH_Ratio",
+      "mean_abs_shap": 0.18539999425411224
+    },
+    {
+      "feature": "LH(mIU/mL)",
+      "mean_abs_shap": 0.15680000185966492
+    },
+    {
+      "feature": "BMI",
+      "mean_abs_shap": 0.14710000157356262
+    },
+    {
+      "feature": "FSH(mIU/mL)",
+      "mean_abs_shap": 0.1298000067472458
+    },
+    {
+      "feature": "Cycle length(days)",
+      "mean_abs_shap": 0.11330000311136246
+    }
+  ],
+  "generated_visualizations": [
+    "shap_summary_beeswarm.png",
+    "shap_bar_importance.png",
+    "shap_waterfall_positive_patient.png",
+    "shap_waterfall_control_patient.png",
+    "shap_dependence_follicles.png",
+    "shap_dependence_amh.png"
+  ]
+}

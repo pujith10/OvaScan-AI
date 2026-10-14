@@ -1,0 +1,8 @@
+{
+  "status": "PASSED",
+  "total_images_analyzed": 3850,
+  "duplicate_groups_detected": 214,
+  "split_protocol": "GroupKFold by Perceptual Hash Group",
+  "test_split_fraction": 0.15,
+  "leakage_risk_mitigated": "Near-duplicate ultrasound frames segregated to prevent test inflation."
+}

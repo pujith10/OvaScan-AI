@@ -1,0 +1,28 @@
+# OvaScan AI v2 Configuration Settings
+seed: 42
+
+paths:
+  data_dir: "data"
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  models_dir: "models"
+  reports_dir: "reports"
+  docs_dir: "docs"
+
+runtime:
+  legacy_mode: true
+  fusion_disagreement_threshold: 0.40
+  default_conformal_alpha: 0.10
+  min_data_quality_score: 60
+
+active_versions:
+  tabular_model: "tierB-2026.10.1"
+  vision_model: "effnet-ft-2026.10.1"
+  rules_version: "intl_guideline_2023"
+  phenotype_version: "gmm-k3-2026.10.1"
+
+display:
+  condition_name: "PCOS"
+  condition_name_expanded: "Polycystic Ovary Syndrome (PCOS)"
+  pmos_naming_enabled: false
+  pmos_display_name: "PMOS (formerly PCOS)"
