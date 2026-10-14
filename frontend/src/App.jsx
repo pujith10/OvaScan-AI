@@ -93,7 +93,10 @@ export default function App() {
     if (!found) return;
     setSelectedPresetId(presetId);
     setCurrentCase(found);
-    setBiomarkers(found.biomarkers);
+    setBiomarkers({
+      ...found.biomarkers,
+      follicleCount: found.follicleCount,
+    });
     setScanUrl(found.ultrasoundScanUrl);
     setImageFile(null);
   };
@@ -103,7 +106,10 @@ export default function App() {
     setPatientCases((prev) => [newPatient, ...prev]);
     setSelectedPresetId(newPatient.id);
     setCurrentCase(newPatient);
-    setBiomarkers(newPatient.biomarkers);
+    setBiomarkers({
+      ...newPatient.biomarkers,
+      follicleCount: newPatient.follicleCount,
+    });
     setScanUrl(newPatient.ultrasoundScanUrl);
     setImageFile(null);
   };

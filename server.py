@@ -126,29 +126,94 @@ class APIHandler(BaseHTTPRequestHandler):
             body = self.rfile.read(content_length)
 
             data = {}
+            content_type = self.headers.get("Content-Type", "")
             try:
-                if self.headers.get("Content-Type", "").startswith("application/json"):
+                if content_type.startswith("application/json"):
                     data = json.loads(body.decode("utf-8"))
-            except Exception:
-                pass
+                elif "multipart/form-data" in content_type:
+                    from email import message_from_bytes
+                    msg = message_from_bytes(f"Content-Type: {content_type}\r\n\r\n".encode("utf-8") + body)
+                    for part in msg.get_payload():
+                        if hasattr(part, "get_param"):
+                            name = part.get_param("name", header="content-disposition")
+                            if name:
+                                val = part.get_payload(decode=True).decode("utf-8", errors="replace").strip()
+                                data[name] = val
+                elif "application/x-www-form-urlencoded" in content_type:
+                    parsed = urllib.parse.parse_qs(body.decode("utf-8", errors="replace"))
+                    data = {k: v[0] for k, v in parsed.items()}
+            except Exception as e:
+                print(f"Error parsing request payload: {e}")
 
             # Extract full clinical feature set with intelligent fallbacks
-            amh = float(data.get("amh", 4.2))
-            lh = float(data.get("lh", 7.5))
-            fsh = float(data.get("fsh", 5.2))
-            bmi = float(data.get("bmi", 24.0))
-            cycle_len = float(data.get("cycleLength", 30.0))
+            try:
+                amh = float(data.get("amh", 4.2))
+            except (ValueError, TypeError):
+                amh = 4.2
+
+            try:
+                bmi = float(data.get("bmi", 24.0))
+            except (ValueError, TypeError):
+                bmi = 24.0
+
+            try:
+                cycle_len = float(data.get("cycleLength", 30.0))
+            except (ValueError, TypeError):
+                cycle_len = 30.0
+
             cycle_reg = 1.0 if cycle_len > 35 or data.get("cycleRegularity", "") == "irregular" else 0.0
 
-            follicles_r = float(data.get("folliclesR", 12 if amh > 5.5 else (4 if amh < 3.0 else 8)))
-            follicles_l = float(data.get("folliclesL", 11 if amh > 5.5 else (4 if amh < 3.0 else 7)))
+            # Bilateral follicle counts
+            if "folliclesR" in data and "folliclesL" in data:
+                try:
+                    follicles_r = float(data.get("folliclesR"))
+                    follicles_l = float(data.get("folliclesL"))
+                except (ValueError, TypeError):
+                    follicles_r = 13.0 if amh > 5.5 else (3.0 if amh < 3.0 else 7.0)
+                    follicles_l = 12.0 if amh > 5.5 else (3.0 if amh < 3.0 else 6.0)
+            elif "follicleCount" in data:
+                try:
+                    f_tot = float(data.get("follicleCount"))
+                    follicles_r = float(math.ceil(f_tot / 2))
+                    follicles_l = float(math.floor(f_tot / 2))
+                except (ValueError, TypeError):
+                    follicles_r = 13.0 if amh > 5.5 else (3.0 if amh < 3.0 else 7.0)
+                    follicles_l = 12.0 if amh > 5.5 else (3.0 if amh < 3.0 else 6.0)
+            else:
+                follicles_r = 13.0 if amh > 5.5 else (3.0 if amh < 3.0 else 7.0)
+                follicles_l = 12.0 if amh > 5.5 else (3.0 if amh < 3.0 else 6.0)
 
-            fast_food = float(data.get("fastFood", 1 if bmi > 27 else 0))
-            skin_darkening = float(data.get("skinDarkening", 1 if amh > 6.0 else 0))
-            hair_growth = float(data.get("hairGrowth", 1 if amh > 5.0 else 0))
-            weight_gain = float(data.get("weightGain", 1 if bmi > 25 else 0))
+            try:
+                lh = float(data.get("lh", 12.5 if amh > 5.5 else 6.5))
+            except (ValueError, TypeError):
+                lh = 12.5 if amh > 5.5 else 6.5
+
+            try:
+                fsh = float(data.get("fsh", 5.2))
+            except (ValueError, TypeError):
+                fsh = 5.2
 
             lh_fsh_ratio = lh / max(0.1, fsh)
+
+            try:
+                fast_food = float(data.get("fastFood", 1 if bmi > 26 else 0))
+            except (ValueError, TypeError):
+                fast_food = 1.0 if bmi > 26 else 0.0
+
+            try:
+                skin_darkening = float(data.get("skinDarkening", 1 if amh > 5.5 else 0))
+            except (ValueError, TypeError):
+                skin_darkening = 1.0 if amh > 5.5 else 0.0
+
+            try:
+                hair_growth = float(data.get("hairGrowth", 1 if amh > 5.0 else 0))
+            except (ValueError, TypeError):
+                hair_growth = 1.0 if amh > 5.0 else 0.0
+
+            try:
+                weight_gain = float(data.get("weightGain", 1 if bmi > 25 else 0))
+            except (ValueError, TypeError):
+                weight_gain = 1.0 if bmi > 25 else 0.0
 
             # Build feature dictionary aligned with TABULAR_FEATURES
             feat_dict = {

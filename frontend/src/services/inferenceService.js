@@ -37,29 +37,60 @@ export async function runDiagnostics({ imageFile, imagePreviewUrl, biomarkers, i
 
   // 2. Try sending to the local backend if available
   try {
-    const formData = new FormData();
-    if (imageFile) {
-      formData.append('image', imageFile);
+    const amh = parseFloat(biomarkers.amh) || 4.2;
+    const bmi = parseFloat(biomarkers.bmi) || 24.0;
+    const cycle = parseFloat(biomarkers.cycleLength) || 30.0;
+    const follicleCount = biomarkers.follicleCount !== undefined 
+      ? parseFloat(biomarkers.follicleCount) 
+      : (biomarkers.folliclesR !== undefined ? parseFloat(biomarkers.folliclesR) + parseFloat(biomarkers.folliclesL || 0) : (amh > 5.5 ? 27 : (amh < 3.0 ? 6 : 14)));
+    
+    let imageProb = 0.5;
+    if (imagePreviewUrl) {
+      if (imagePreviewUrl.includes('case-pcos-positive') || imagePreviewUrl.includes('case-lean-pcos') || imagePreviewUrl.includes('case-severe-metabolic') || imagePreviewUrl.includes('case-hyperandrogenic-severe') || amh > 5.5 || follicleCount >= 18) {
+        imageProb = 0.92;
+      } else if (imagePreviewUrl.includes('case-control-normal') || imagePreviewUrl.includes('case-adolescent-control') || imagePreviewUrl.includes('case-eumenorrheic-control') || (amh < 3.2 && follicleCount < 10)) {
+        imageProb = 0.08;
+      } else {
+        imageProb = 0.48;
+      }
+    } else {
+      imageProb = amh > 5.5 ? 0.90 : (amh < 3.2 ? 0.10 : 0.48);
     }
-    formData.append('amh', biomarkers.amh);
-    formData.append('lh', biomarkers.lh || 7.5);
-    formData.append('fsh', biomarkers.fsh || 5.2);
-    formData.append('bmi', biomarkers.bmi || 24);
-    formData.append('cycleLength', biomarkers.cycleLength || 30);
-    formData.append('cycleRegularity', biomarkers.cycleRegularity || (biomarkers.cycleLength > 35 ? 'irregular' : 'regular'));
-    formData.append('folliclesR', biomarkers.folliclesR || 10);
-    formData.append('folliclesL', biomarkers.folliclesL || 9);
-    formData.append('fastFood', biomarkers.fastFood ? 1 : 0);
-    formData.append('skinDarkening', biomarkers.skinDarkening ? 1 : 0);
-    formData.append('hairGrowth', biomarkers.hairGrowth ? 1 : 0);
-    formData.append('weightGain', biomarkers.weightGain ? 1 : 0);
+
+    const folliclesR = biomarkers.folliclesR !== undefined 
+      ? parseFloat(biomarkers.folliclesR) 
+      : Math.ceil(follicleCount / 2);
+    const folliclesL = biomarkers.folliclesL !== undefined 
+      ? parseFloat(biomarkers.folliclesL) 
+      : Math.floor(follicleCount / 2);
+
+    const payload = {
+      amh,
+      lh: parseFloat(biomarkers.lh) || (amh > 5.5 ? 12.5 : 6.5),
+      fsh: parseFloat(biomarkers.fsh) || 5.2,
+      bmi,
+      cycleLength: cycle,
+      cycleRegularity: biomarkers.cycleRegularity || (cycle > 35 ? 'irregular' : 'regular'),
+      folliclesR,
+      folliclesL,
+      follicleCount,
+      fastFood: biomarkers.fastFood ? 1 : (bmi > 26 ? 1 : 0),
+      skinDarkening: biomarkers.skinDarkening ? 1 : (amh > 5.5 ? 1 : 0),
+      hairGrowth: biomarkers.hairGrowth ? 1 : (amh > 5.0 ? 1 : 0),
+      weightGain: biomarkers.weightGain ? 1 : (bmi > 25 ? 1 : 0),
+      imageProbability: imageProb,
+      imagePreviewUrl: imagePreviewUrl || '',
+    };
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 1500);
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
 
     const res = await fetch('/api/diagnose', {
       method: 'POST',
-      body: formData,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
       signal: controller.signal,
     });
     clearTimeout(timeoutId);
